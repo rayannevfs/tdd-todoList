@@ -15,3 +15,8 @@ def test_nao_permite_titulos_duplicados_case_insensitive():
     with pytest.raises(ValueError) as e:
         criar_tarefa("pagar boleto", "Conta de água")
     assert "Já existe tarefa com este título." in str(e.value)
+
+def test_nao_permite_titulo_vazio_ou_so_espacos():
+    with pytest.raises(ValueError) as e:
+        criar_tarefa("   ", "desc")
+    assert "Título é obrigatório." in str(e.value)
