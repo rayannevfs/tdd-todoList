@@ -1,4 +1,5 @@
 _TASKS = {}
+STATUS_PENDENTE = "pendente"
 
 def _normalizar_titulo(titulo):
     if not isinstance(titulo, str):
@@ -22,7 +23,7 @@ def criar_tarefa(titulo, descricao):
     tarefa = {
         "titulo": titulo_limpo,
         "descricao": descricao if descricao is not None else "",
-        "status": "pendente",
+        "status": STATUS_PENDENTE,
     }
     _TASKS[chave] = tarefa
     return _clonar(tarefa)
