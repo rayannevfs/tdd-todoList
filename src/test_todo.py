@@ -4,6 +4,7 @@ from todo import (
     listar_tarefas,
     concluir_tarefa,
     obter_tarefa,
+    remover_tarefa,
     STATUS_PENDENTE,
     STATUS_CONCLUIDA
 )
@@ -62,3 +63,11 @@ def test_concluir_tarefa_ja_concluida_gera_erro():
     with pytest.raises(ValueError) as e:
         concluir_tarefa("Backup")
     assert "Tarefa já está concluída." in str(e.value)
+
+def test_remover_tarefa_funciona_e_inexistente_erro():
+    criar_tarefa("Limpar cache", "Navegador")
+    assert remover_tarefa("Limpar cache") is True
+    assert listar_tarefas() == []
+    with pytest.raises(ValueError) as e:
+        remover_tarefa("Limpar cache")
+    assert "Tarefa não encontrada." in str(e.value)

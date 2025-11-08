@@ -70,3 +70,6 @@ def concluir_tarefa(titulo):
         raise ValueError("Tarefa já está concluída.")
     t["status"] = STATUS_CONCLUIDA
     return _clonar(t)
+
+def remover_tarefa(titulo):
+    pass
