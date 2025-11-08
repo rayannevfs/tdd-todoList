@@ -4,7 +4,8 @@ from todo import (
     listar_tarefas,
     concluir_tarefa,
     obter_tarefa,
-    STATUS_PENDENTE
+    STATUS_PENDENTE,
+    STATUS_CONCLUIDA
 )
 
 def test_criar_tarefa_valida():
@@ -43,3 +44,21 @@ def test_obter_tarefa_existente_ou_none():
     criar_tarefa("Ler livro", "Capítulo 3")
     assert obter_tarefa("Ler livro")["descricao"] == "Capítulo 3"
     assert obter_tarefa("Inexistente") is None
+
+def test_concluir_tarefa_altera_status():
+    criar_tarefa("Exercícios", "Lista 1")
+    t = concluir_tarefa("Exercícios")
+    assert t["status"] == STATUS_CONCLUIDA
+    assert obter_tarefa("Exercícios")["status"] == STATUS_CONCLUIDA
+
+def test_concluir_tarefa_inexistente_gera_erro():
+    with pytest.raises(ValueError) as e:
+        concluir_tarefa("Nada aqui")
+    assert "Tarefa não encontrada." in str(e.value)
+
+def test_concluir_tarefa_ja_concluida_gera_erro():
+    criar_tarefa("Backup", "HD externo")
+    concluir_tarefa("Backup")
+    with pytest.raises(ValueError) as e:
+        concluir_tarefa("Backup")
+    assert "Tarefa já está concluída." in str(e.value)
