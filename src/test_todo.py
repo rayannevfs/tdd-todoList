@@ -3,6 +3,7 @@ from todo import (
     criar_tarefa,
     listar_tarefas,
     concluir_tarefa,
+    obter_tarefa,
     STATUS_PENDENTE
 )
 
@@ -37,3 +38,8 @@ def test_listar_filtrando_por_status():
     concluidas = listar_tarefas("concluída")
     assert [i["titulo"] for i in pendentes] == ["A"]
     assert [i["titulo"] for i in concluidas] == ["B"]
+
+def test_obter_tarefa_existente_ou_none():
+    criar_tarefa("Ler livro", "Capítulo 3")
+    assert obter_tarefa("Ler livro")["descricao"] == "Capítulo 3"
+    assert obter_tarefa("Inexistente") is None
