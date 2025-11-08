@@ -1,6 +1,8 @@
 import pytest
 from todo import (
     criar_tarefa,
+    listar_tarefas,
+    concluir_tarefa,
     STATUS_PENDENTE
 )
 
@@ -20,3 +22,18 @@ def test_nao_permite_titulo_vazio_ou_so_espacos():
     with pytest.raises(ValueError) as e:
         criar_tarefa("   ", "desc")
     assert "Título é obrigatório." in str(e.value)
+
+def test_listar_tarefas_sem_filtro_mantem_ordem_de_criacao():
+    criar_tarefa("A", "1")
+    criar_tarefa("B", "2")
+    itens = listar_tarefas()
+    assert [i["titulo"] for i in itens] == ["A", "B"]
+
+def test_listar_filtrando_por_status():
+    criar_tarefa("A", "1")
+    criar_tarefa("B", "2")
+    concluir_tarefa("B")
+    pendentes = listar_tarefas("pendente")
+    concluidas = listar_tarefas("concluída")
+    assert [i["titulo"] for i in pendentes] == ["A"]
+    assert [i["titulo"] for i in concluidas] == ["B"]

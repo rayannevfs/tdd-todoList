@@ -28,3 +28,8 @@ def criar_tarefa(titulo, descricao):
     _TASKS[chave] = tarefa
     return _clonar(tarefa)
 
+def listar_tarefas(status=None):
+    pass
+
+def concluir_tarefa(titulo):
+    pass
