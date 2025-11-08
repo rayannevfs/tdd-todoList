@@ -72,4 +72,8 @@ def concluir_tarefa(titulo):
     return _clonar(t)
 
 def remover_tarefa(titulo):
-    pass
+    chave = _chave(titulo)
+    if chave not in _TASKS:
+        raise ValueError("Tarefa não encontrada.")
+    del _TASKS[chave]
+    return True
