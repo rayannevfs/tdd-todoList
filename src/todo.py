@@ -57,4 +57,6 @@ def concluir_tarefa(titulo):
     return _clonar(t)
 
 def obter_tarefa(titulo):
-    pass
+    chave = _chave(titulo)
+    t = _TASKS.get(chave)
+    return _clonar(t) if t else None
