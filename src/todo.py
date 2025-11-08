@@ -62,4 +62,11 @@ def obter_tarefa(titulo):
     return _clonar(t) if t else None
 
 def concluir_tarefa(titulo):
-    pass
+    chave = _chave(titulo)
+    t = _TASKS.get(chave)
+    if not t:
+        raise ValueError("Tarefa não encontrada.")
+    if t["status"] == STATUS_CONCLUIDA:
+        raise ValueError("Tarefa já está concluída.")
+    t["status"] = STATUS_CONCLUIDA
+    return _clonar(t)
